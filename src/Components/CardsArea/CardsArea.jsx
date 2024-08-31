@@ -28,7 +28,7 @@ const CardsArea = () => {
     <>
     <div className='mt-10'>
     <h1 className='text-3xl text-center font-semibold text-[#00a6bb] mb-10'>HOMEPAGE ITEMS</h1>
-    <div className='w-full flex justify-evenly gap-5 flex-wrap'>
+    <div className='w-full flex justify-evenly gap-5 flex-wrap px-2'>
     {
       getCards.length ? getCards.map((data, index) => {
 
