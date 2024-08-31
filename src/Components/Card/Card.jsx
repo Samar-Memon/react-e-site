@@ -87,7 +87,7 @@ const Card = ({image, title, desc, price, btnID}) => {
 
   return (
     <>
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden card">
+    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden card my-5">
         <img className="w-full h-64 object-cover" src={image} alt="Product Image" />
         <div className="p-4">
             <h2 className="text-xl font-semibold mb-2 text-[#00a6bb]">{title}</h2>
