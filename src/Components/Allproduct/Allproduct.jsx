@@ -4,6 +4,17 @@ import Layout from "../Layout/Layout";
 import Card from "../Card/Card";
 
 const Allproduct = () => {
+
+  let getLocals;
+  useState(() => {
+    const getting =  sessionStorage.getItem('E-react-user_name') && sessionStorage.getItem('E-react-user_email')
+    if(getting == null){
+      getLocals = false
+    }else{
+      getLocals = true
+    }
+  }, [])
+
   const [fashion, setFashion] = useState([]);
   const [shirt, setShirt] = useState([]);
   const [jacket, setJacket] = useState([]);
