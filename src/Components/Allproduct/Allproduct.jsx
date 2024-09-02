@@ -91,7 +91,7 @@ const Allproduct = () => {
         {
           <div className="flex flex-wrap justify-evenly mb-12">
             {shirt.length > 0 ? (
-              fashion.map((item, index) => {
+              shirt.map((item, index) => {
                 let data = item.data();
                 return (
                   <Card
