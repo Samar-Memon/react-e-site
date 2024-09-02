@@ -25,7 +25,7 @@ const Laptop = () => {
 
     querySnapshot.forEach((doc) => {
       if (doc.data().productCategory === 'laptop') {
-        filteredProducts.push(doc.data());
+        filteredProducts.push(doc);
       } else {
         setNoData(true)
       }
@@ -46,9 +46,10 @@ const Laptop = () => {
       <h1 className='text-3xl mt-10 mb-5 font-semibold text-[#00a6bb] text-center border-b-2 border-[#00a6bb] pb-5'>Laptops Items</h1>
       <div className='flex flex-wrap justify-evenly px-2 gap-y-5'>
       {
-        getLaptopProduct.length > 0 ? getLaptopProduct.map((data, index) => {
-          return(
-            <Card key={index} image={data.productImageURL} title={data.productName} price={data.productPrice} desc={data.productDescription}/>
+        getLaptopProduct.length > 0 ? getLaptopProduct.map((item, index) => {
+          let data = item.data()
+        return(
+          <Card key={index} image={data.productImageURL} title={data.productName} price={data.productPrice} desc={data.productDescription} btnID={item.id}/>
           )
         }) : noData ? <h1 className='text-2xl text-[#00a6bb] font-semibold'>No Data from Laptops Items</h1> : <div className="loader"></div>
       }
