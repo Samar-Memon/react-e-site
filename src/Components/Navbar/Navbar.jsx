@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
 
   const [toggleBtn, setToggleBtn] = useState(false)
+  const [getLocals, setGetLocals] = useState(false)
 
-  let getLocals;
   useState(() => {
     const getting =  sessionStorage.getItem('E-react-user_name') && sessionStorage.getItem('E-react-user_email')
     if(getting == null){
-      getLocals = false
+      setGetLocals(false)
     }else{
-      getLocals = true
+      setGetLocals(true)
     }
   }, [])
 

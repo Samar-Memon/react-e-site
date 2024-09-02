@@ -5,13 +5,14 @@ import Card from "../Card/Card";
 
 const Allproduct = () => {
 
-  let getLocals;
+  const [getLocals, setGetLocals] = useState(false)
+
   useState(() => {
     const getting =  sessionStorage.getItem('E-react-user_name') && sessionStorage.getItem('E-react-user_email')
     if(getting == null){
-      getLocals = false
+      setGetLocals(false)
     }else{
-      getLocals = true
+      setGetLocals(true)
     }
   }, [])
 

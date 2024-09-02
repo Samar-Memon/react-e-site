@@ -5,14 +5,17 @@ import { addDoc, collection, db, deleteDoc, getDocs } from '../../FireBase/fireb
 import { toast } from 'react-toastify';
 
 const CartArea = () => {
-    let getLocals;
-    useEffect(() => {
-        const getting = sessionStorage.getItem('E-react-user_email') && sessionStorage.getItem('E-react-user-name')
-        if(getting == null){
-            getLocals = false
-        }else{
-            getLocals = true
-        }
+
+    const [getLocals, setGetLocals] = useState(false)
+    const [sizes, setSizes] = useState(0)
+
+    useState(() => {
+      const getting =  sessionStorage.getItem('E-react-user_name') && sessionStorage.getItem('E-react-user_email')
+      if(getting == null){
+        setGetLocals(false)
+      }else{
+        setGetLocals(true)
+      }
     }, [])
 
     const [getCarts, setGetCarts] = useState([]);
@@ -54,6 +57,7 @@ useEffect(() => {
     const prices = getCarts.map(cart => +cart.data().price);
     setItemsPrice(prices);
     setTotalCarts(getCarts.length)
+    setSizes(getCarts.length)
 }, [getCarts]);
 
 
@@ -64,15 +68,23 @@ useEffect(() => {
 
     const orderDone = async () => {
         if(getLocals){
+           if(sizes){
             const obj = {
                 userEmail: sessionStorage.getItem('E-react-user_email'),
                 userName: sessionStorage.getItem('E-react-user_name'),
                 ordersNo: totalCarts
             };
-    
+
             pushOrder(obj);
+           }else{
+            toast.error('No Cart Items!',{
+                autoClose: 600
+            })
+           }
         }else{
-            toast.error('SignIn your Account!')
+            toast.error('SignIn your Account!',{
+                autoClose: 600
+            })
         }
     };
 
