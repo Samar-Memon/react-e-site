@@ -21,32 +21,46 @@ const CartArea = () => {
     const [totalCarts, setTotalCarts] = useState('');
     const itemsPriceArr = []
     const [ordersArr, setOrdersArr] = useState([])
-    
+
+    useEffect(() => {
+        const getOrders = async () => {
+            const querySnapshot = await getDocs(collection(db, "order"));
+            const orders = [];
+            querySnapshot.forEach((doc) => {
+                if (doc.data().userEmail === sessionStorage.getItem('E-react-user_email')) {
+                    orders.push(doc.data());
+                }
+            });
+            setOrdersArr(orders);
+        };
+        getOrders();
+    }, []);
+
+   useEffect(() => {
     const getDataFromFB4Cart = async() => {
         const cartsArr = []
         const querySnapshot = await getDocs(collection(db, "cartItems"));
             querySnapshot.forEach((doc) => {
                 if(doc.data().userEmail == sessionStorage.getItem('E-react-user_email')){
                 cartsArr.push(doc)
-                setGetCarts(cartsArr)
-                }
-                if(itemsPriceArr.length < querySnapshot.size){
-                    itemsPriceArr.push(+doc.data().price)
-                    setItemsPrice(itemsPriceArr)
-                }
-            });
-            setTotalCarts(querySnapshot.size)
+            }
+        });
+        setGetCarts(cartsArr)
     }
+    getDataFromFB4Cart()
+}, [])
 
-    useEffect(() => {
-        getDataFromFB4Cart()
-    }, [])
+useEffect(() => {
+    const prices = getCarts.map(cart => +cart.data().price);
+    setItemsPrice(prices);
+    setTotalCarts(getCarts.length)
+}, [getCarts]);
 
 
-        let subtotal = itemsPrice.reduce((accumulator, currentPrice) => accumulator + currentPrice, 0);
-        let tax = getCarts.length > 0 ? getCarts.length * 3 : 0;
-        let shipping = subtotal ? 5.00 : 0;
-        let totalPrice = subtotal + tax + shipping;
+    const subtotal = itemsPrice.reduce((acc, price) => acc + price, 0);
+    const tax = getCarts.length > 0 ? getCarts.length * 3 : 0;
+    const shipping = subtotal ? 5.00 : 0;
+    const totalPrice = subtotal + tax + shipping;
 
     const orderDone = async () => {
         const obj = {
@@ -66,7 +80,7 @@ const CartArea = () => {
           cartItem.userName === sessionStorage.getItem('E-react-user_name') &&
           cartItem.ordersNo === totalCarts
         );
-        console.log(exists);
+        console.log('hai');
 
 
         if (exists) {
