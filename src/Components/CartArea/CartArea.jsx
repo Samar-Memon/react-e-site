@@ -63,13 +63,17 @@ useEffect(() => {
     const totalPrice = subtotal + tax + shipping;
 
     const orderDone = async () => {
-        const obj = {
-            userEmail: sessionStorage.getItem('E-react-user_email'),
-            userName: sessionStorage.getItem('E-react-user_name'),
-            ordersNo: totalCarts
-        };
-        
-        pushOrder(obj);
+        if(getLocals){
+            const obj = {
+                userEmail: sessionStorage.getItem('E-react-user_email'),
+                userName: sessionStorage.getItem('E-react-user_name'),
+                ordersNo: totalCarts
+            };
+    
+            pushOrder(obj);
+        }else{
+            toast.error('SignIn your Account!')
+        }
     };
 
 
