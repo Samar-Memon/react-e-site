@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../../Layout/Layout'
 import { addDoc, collection, db, getDocs } from '../../../FireBase/firebase';
 import { toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 
 const ViewItem = () => {
+    const params = useParams().id
 
-    const getUID = location.pathname.slice(7);
+    const getUID = params;
     const [item, setItem] = useState([])
     console.log(getUID);
     const getItemOnFB = async() => {

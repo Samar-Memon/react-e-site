@@ -16,12 +16,15 @@ import CartArea from './Components/CartArea/CartArea';
 import ViewItem from './Components/pages/ViewItem/ViewItem';
 import SignIn from './Components/SignIn/SignIn';
 import NoPage from './Components/pages/NoPage/NoPage';
+import Footer from './Components/Footer/Footer';
+import ScrollTop from './Components/ScrollTop/ScrollTop';
 
 function App() {
   return (
     <>
       <ToastContainer />
       <BrowserRouter>
+          <ScrollTop/>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/allproduct' element={<Allproduct />} />
@@ -38,6 +41,7 @@ function App() {
           <Route path='/items/:id' element={<ViewItem />} />
           <Route path='/*' element={<NoPage />} />
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </>
   );

@@ -13,7 +13,6 @@ const Home = () => {
         <CategoryArea/>
         <CardsArea/>
         <TestimonialArea/>
-        <Footer/>
       </Layout>
   )
 }
