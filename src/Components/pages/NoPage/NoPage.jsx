@@ -11,7 +11,7 @@ const NoPage = () => {
         404
       </h1>
       <p className="mb-4 text-3xl tracking-tight font-bold text-[#00a6bb] md:text-4xl">
-        Something's missing.
+        Page not Found
       </p>
       <p className="mb-4 text-lg font-semibold text-black">
         Sorry, we can't find that page. You'll find lots to explore on the home
@@ -20,7 +20,7 @@ const NoPage = () => {
       <Link
         to="/"
       >
-        <button className='bg-[#00a6bb] text-white px-6 h-[50px] rounded-lg font-semibold border-2 border-[#00a6bb] hover:bg-transparent hover:text-[#00a6bb]'> 
+        <button className='bg-[#00a6bb] text-white px-6 h-[50px] rounded-lg font-semibold border-2 border-[#00a6bb] hover:bg-transparent hover:text-[#00a6bb]'>
         Back to Homepage
         </button>
       </Link>
