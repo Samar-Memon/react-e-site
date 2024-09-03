@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 const ViewItem = () => {
 
-    const getUID = location.pathname.slice(1);
+    const getUID = location.pathname.slice(7);
     const [item, setItem] = useState([])
     console.log(getUID);
     const getItemOnFB = async() => {

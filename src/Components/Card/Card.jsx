@@ -95,7 +95,7 @@ const Card = ({image, title, desc, price, btnID}) => {
             <p className="text-gray-600 text-sm mb-4">{desc.slice(0,100)}...</p>
             <div className="flex justify-between">
                 <button id={btnID}onClick={(e) => {
-                  navigate(`/${e.target.id}`)
+                  navigate(`/items/${e.target.id}`)
                 }} className="bg-[#00a6bb] text-white py-2 px-4 rounded hover:bg-transparent hover:text-[#00a6bb] border-2 border-[#00a6bb]">View Item <i className="fa-solid fa-eye"></i></button>
                 <button id={cartAdded ? 'added' : btnID } className="bg-[#00a6bb] text-white py-2 px-4 rounded hover:bg-transparent hover:text-[#00a6bb] border-2 border-[#00a6bb] cartBtn" onClick={addToCart}>Add to Cart <i className="fa-solid fa-cart-shopping"></i></button>
             </div>

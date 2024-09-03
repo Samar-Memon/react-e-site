@@ -15,6 +15,7 @@ import Books from './Components/pages/Books/Books';
 import CartArea from './Components/CartArea/CartArea';
 import ViewItem from './Components/pages/ViewItem/ViewItem';
 import SignIn from './Components/SignIn/SignIn';
+import NoPage from './Components/pages/NoPage/NoPage';
 
 function App() {
   return (
@@ -34,7 +35,8 @@ function App() {
           <Route path='/shoes' element={<Shoes />} />
           <Route path='/cartitems' element={<CartArea />} />
           <Route path='/signin' element={<SignIn />} />
-          <Route path='/:id' element={<ViewItem />} />
+          <Route path='/items/:id' element={<ViewItem />} />
+          <Route path='/*' element={<NoPage />} />
         </Routes>
       </BrowserRouter>
     </>
