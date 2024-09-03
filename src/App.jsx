@@ -19,6 +19,7 @@ import NoPage from './Components/pages/NoPage/NoPage';
 import Footer from './Components/Footer/Footer';
 import ScrollTop from './Components/ScrollTop/ScrollTop';
 import Context from './Context/Context';
+import Login from './Components/pages/Login/Login';
 
 function App() {
   return (
@@ -39,11 +40,14 @@ function App() {
           <Route path='/books' element={<Books />} />
           <Route path='/shoes' element={<Shoes />} />
           <Route path='/cartitems' element={<CartArea />} />
-          <Route path='/signin' element={<SignIn />} />
           <Route path='/items/:id' element={<ViewItem />} />
           <Route path='/*' element={<NoPage />} />
+          <Route path='/signup' element={<SignIn />} />
+          <Route path='/login' element={<Login />} />
         </Routes>
-        <Footer/>
+          {
+            location.pathname != '/login' && location.pathname != '/signup' ? <Footer/> : ''
+          }
       </BrowserRouter>
       </Context>
     </>

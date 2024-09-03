@@ -1,7 +1,7 @@
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-analytics.js";
-  import { getAuth,createUserWithEmailAndPassword,onAuthStateChanged,signOut } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+  import { getAuth,createUserWithEmailAndPassword,onAuthStateChanged,signInWithEmailAndPassword ,signOut } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
   import { getFirestore,collection, addDoc,getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -34,5 +34,6 @@
     auth,
     createUserWithEmailAndPassword,
     onAuthStateChanged,
-    signOut
+    signOut,
+    signInWithEmailAndPassword
   }

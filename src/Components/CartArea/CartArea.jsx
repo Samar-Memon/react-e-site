@@ -95,7 +95,6 @@ useEffect(() => {
         // Check if the item already exists in the cart
         const exists = ordersArr.some(cartItem =>
           cartItem.userEmail === sessionStorage.getItem('E-react-user_email') &&
-          cartItem.userName === sessionStorage.getItem('E-react-user_name') &&
           cartItem.ordersNo === totalCarts
         );
         console.log('hai');
@@ -111,7 +110,6 @@ useEffect(() => {
           try {
             const docRef = await addDoc(collection(db, "order"), {
               userEmail: sessionStorage.getItem('E-react-user_email'),
-              userName: sessionStorage.getItem('E-react-user_name'),
               ordersNo: totalCarts,
               totalPrice
             });
@@ -173,7 +171,7 @@ useEffect(() => {
                 <div className="border-t border-gray-200 py-4 mb-4">
                     <p className="flex justify-between text-lg font-semibold">
                         <span className='text-[#00a6bb]'>Total</span>
-                        <span>{totalPrice ? `${totalPrice}.00` : 0.00}</span>
+                        <span>{totalPrice ? `$${totalPrice}.00` : 0.00}</span>
                     </p>
                 </div>
                 <div>

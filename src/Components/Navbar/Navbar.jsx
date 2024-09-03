@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from '../../Context/Context';
 import { auth, signOut } from '../../FireBase/firebase';
 
 
 const Navbar = () => {
-
 
   const [toggleBtn, setToggleBtn] = useState(false)
   const [getLocals, setGetLocals] = useState(false)
@@ -19,6 +18,8 @@ const Navbar = () => {
       setGetLocals(false)
     }
   }, [isUser])
+
+  const navigate = useNavigate();
 
   const navBarUL = (
   <>
@@ -42,12 +43,12 @@ const Navbar = () => {
     </li>
       {
         !getLocals ? <li className='border-[3px] border-transparent hover:border-[#ffcfd0] hover:bg-transparent hover:text-[#ffcfd0] text-[#00a6bb] px-2 rounded-sm bg-[#ffcfd0]'>
-        <Link to={'/signin'}>
-          SignIn
+        <Link to={'/signup'}>
+          SignUp
         </Link>
-    </li> : <li onClick={() => {
+    </li> : location.pathname != '/signup' && location.pathname != '/login' &&  <li onClick={() => {
       signOut(auth).then(() => {
-        console.log('User signed out successfully.');
+        navigate('/')
       }).catch((error) => {
         console.error('Error signing out: ', error);
       });
@@ -56,7 +57,6 @@ const Navbar = () => {
         <i className="fa-solid fa-right-from-bracket"></i> LogOut
       </button>
     </li>
-
       }
 
   </ul>

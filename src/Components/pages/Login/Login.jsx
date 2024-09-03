@@ -1,77 +1,43 @@
-import React, { useContext, useEffect, useState } from 'react'
-import Layout from '../Layout/Layout'
+import React, { useState } from 'react'
+import Layout from '../../Layout/Layout'
 import { Link, useNavigate } from 'react-router-dom'
-import { auth, createUserWithEmailAndPassword } from '../../FireBase/firebase';
-import { UserContext } from '../../Context/Context';
-import { toast } from 'react-toastify';
+import { auth, signInWithEmailAndPassword } from '../../../FireBase/firebase'
+import { toast } from 'react-toastify'
 
-const SignIn = () => {
-  const navigate = useNavigate();
+const Login = () => {
 
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-  const {isUser} = useContext(UserContext);
+    const navigate = useNavigate()
 
-  useEffect(() => {
-    if(isUser){
-      navigate('/login')
-    }else{
-      navigate('/signup')
+    const formSubmitted = (e) => {
+        e.preventDefault();
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            sessionStorage.setItem('E-react-user_email', user.email)
+            navigate('/')
+        })
+        .catch((error) => {
+            toast.error(error.code.split('/')[1].split('-').join(' '), {
+                autoClose: 500
+            })
+        });
     }
-  }, [isUser])
-
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-  const formSubmitted = async(e) => {
-    e.preventDefault()
-
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      e.preventDefault();
-      navigate('/login')
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      toast.error(error.code.split('/')[1].split('-').join(' '), {
-        autoClose: 500
-    })
-      // ..
-    });
-  }
 
   return (
     <>
+
     <Layout>
     <section className="bg-gray-50 h-[100vh] flex justify-center items-center">
   <div className="px-1 py-8 max-w-[500px] w-full lg:py-0">
     <div className="w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0">
       <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
         <h1 className="text-xl font-bold leading-tight tracking-tight text-center text-[#00a6bb] md:text-2xl">
-          Create an account
+          Login your Account
         </h1>
         <form className="space-y-4 md:space-y-6" onSubmit={formSubmitted}>
-        <div>
-            <label
-              htmlFor="name"
-              className="block mb-2 text-sm font-medium text-[#00a6bb]"
-            >
-              User Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-              placeholder="User Name"
-              required
-              minLength={4}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
           <div>
             <label
               htmlFor="email"
@@ -113,10 +79,10 @@ const SignIn = () => {
             type="submit"
             className="w-full text-white bg-[#00a6bb] hover:bg-transparent hover:text-[#00a6bb] border-2 border-[#00a6bb] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
-            Create an account
+            Login account
           </button>
 
-        <p className='text-center'>Have an already <Link className='text-[#00a6bb] font-semibold hover:underline' to={'/login'}>Account?</Link></p>
+          <p className='text-center'>Don't have an <Link className='text-[#00a6bb] font-semibold hover:underline' to={'/signup'}>Account?</Link></p>
 
         </form>
       </div>
@@ -129,4 +95,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default Login

@@ -32,7 +32,6 @@ const Card = ({image, title, desc, price, btnID}) => {
       querySnapshot.forEach((doc) => {
         if(doc.data().userEmail == sessionStorage.getItem('E-react-user_email')){
         cartArr.push(doc.data())
-        console.log(doc.data());
         }
       });
     }else{
@@ -57,7 +56,7 @@ const Card = ({image, title, desc, price, btnID}) => {
     
     pushCart(obj);
   }else{
-    navigate('/signin')
+    navigate('/login')
   }
   }
   
