@@ -1,30 +1,40 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Layout from '../Layout/Layout'
 import { useNavigate } from 'react-router-dom'
+import { auth, createUserWithEmailAndPassword } from '../../FireBase/firebase';
+import { UserContext } from '../../Context/Context';
 
 const SignIn = () => {
   const navigate = useNavigate();
+
+
+  const {isUser} = useContext(UserContext);
+
+  useEffect(() => {
+    if(isUser){
+      navigate('/')
+    }else{
+      navigate('/signin')
+    }
+  }, [isUser])
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const formSubmitted = async() => {
-    sessionStorage.setItem('E-react-user_name', name);
-    sessionStorage.setItem('E-react-user_email', email);
-    const userName = sessionStorage.getItem('E-react-user_name')
-    const userEmail = sessionStorage.getItem('E-react-user_email')
+  const formSubmitted = async(e) => {
 
-      try {
-        const docRef = await addDoc(collection(db, "users"), {
-          userEmail,
-          userName,
-          createdAt: new Date().toLocaleDateString()
-        });
-        console.log("Document written with ID: ", docRef.id);
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      e.preventDefault();
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorMessage)
+      // ..
+    });
     navigate('/')
   }
 

@@ -1,13 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { collection, db, getDocs, addDoc } from '../../FireBase/firebase';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../Context/Context';
+
 
 
 const Card = ({image, title, desc, price, btnID}) => {
 
-  const getLocals = sessionStorage.getItem('E-react-user_name') && sessionStorage.getItem('E-react-user_email')
+  const {isUser} = useContext(UserContext);
+
+  const [getLocals, setGetLocals] = useState(false)
+
+  useEffect(() => {
+    if(isUser){
+      setGetLocals(true)
+    }else{
+      setGetLocals(false)
+    }
+  }, [])
+
   const cartCollection = collection(db, 'cartItems')
   const [cartAdded, setCartAdded] = useState(false)
   const [cartArr, setCartArr] = useState([])
@@ -44,9 +57,7 @@ const Card = ({image, title, desc, price, btnID}) => {
     
     pushCart(obj);
   }else{
-    toast.error('SignIn your Account', {
-      autoClose: 500
-    })
+    navigate('/signin')
   }
   }
   

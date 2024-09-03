@@ -1,21 +1,24 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { UserContext } from '../../Context/Context';
+import { auth, signOut } from '../../FireBase/firebase';
+
 
 const Navbar = () => {
+
 
   const [toggleBtn, setToggleBtn] = useState(false)
   const [getLocals, setGetLocals] = useState(false)
 
-  useState(() => {
-    const getting =  sessionStorage.getItem('E-react-user_name') && sessionStorage.getItem('E-react-user_email')
-    if(getting == null){
-      setGetLocals(false)
-    }else{
+  const {isUser} = useContext(UserContext);
+
+  useEffect(() => {
+    if(isUser){
       setGetLocals(true)
+    }else{
+      setGetLocals(false)
     }
-  }, [])
-
-
+  }, [isUser])
 
   const navBarUL = (
   <>
@@ -37,18 +40,23 @@ const Navbar = () => {
         Cart Items
       </Link>
     </li>
-    {/* <li className='border-b-[3px] border-transparent hover:border-[#ffcfd0]'>
-      <Link to={'/'}>
-        <i className="fa-solid fa-user-circle"></i> User Name
-      </Link>
-    </li> */}
-
       {
-        !getLocals && <li className='border-[3px] border-transparent hover:border-[#ffcfd0] hover:bg-transparent hover:text-[#ffcfd0] text-[#00a6bb] px-2 rounded-sm bg-[#ffcfd0]'>
+        !getLocals ? <li className='border-[3px] border-transparent hover:border-[#ffcfd0] hover:bg-transparent hover:text-[#ffcfd0] text-[#00a6bb] px-2 rounded-sm bg-[#ffcfd0]'>
         <Link to={'/signin'}>
           SignIn
         </Link>
+    </li> : <li onClick={() => {
+      signOut(auth).then(() => {
+        console.log('User signed out successfully.');
+      }).catch((error) => {
+        console.error('Error signing out: ', error);
+      });
+    }} className='border-[3px] border-transparent hover:border-[#ffcfd0] hover:bg-transparent hover:text-[#ffcfd0] text-[#00a6bb] px-2 rounded-sm bg-[#ffcfd0]'>
+      <button>
+        <i className="fa-solid fa-right-from-bracket"></i> LogOut
+      </button>
     </li>
+
       }
 
   </ul>

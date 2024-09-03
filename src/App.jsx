@@ -18,10 +18,12 @@ import SignIn from './Components/SignIn/SignIn';
 import NoPage from './Components/pages/NoPage/NoPage';
 import Footer from './Components/Footer/Footer';
 import ScrollTop from './Components/ScrollTop/ScrollTop';
+import Context from './Context/Context';
 
 function App() {
   return (
     <>
+    <Context>
       <ToastContainer />
       <BrowserRouter>
           <ScrollTop/>
@@ -43,6 +45,7 @@ function App() {
         </Routes>
         <Footer/>
       </BrowserRouter>
+      </Context>
     </>
   );
 }

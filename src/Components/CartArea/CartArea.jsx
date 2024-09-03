@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Layout from '../Layout/Layout'
 import Cart from '../Cart/Cart'
 import { addDoc, collection, db, deleteDoc, getDocs } from '../../FireBase/firebase';
 import { toast } from 'react-toastify';
+import { UserContext } from '../../Context/Context';
+import { useNavigate } from 'react-router-dom';
 
 const CartArea = () => {
+
+    const navigate = useNavigate()
 
     const [getLocals, setGetLocals] = useState(false)
     const [sizes, setSizes] = useState(0)
 
-    useState(() => {
-      const getting =  sessionStorage.getItem('E-react-user_name') && sessionStorage.getItem('E-react-user_email')
-      if(getting == null){
-        setGetLocals(false)
-      }else{
-        setGetLocals(true)
-      }
-    }, [])
+  const {isUser} = useContext(UserContext);
+
+    useEffect(() => {
+        if(isUser){
+          setGetLocals(true)
+        }else{
+          setGetLocals(false)
+        }
+      }, [])
 
     const [getCarts, setGetCarts] = useState([]);
     const [itemsPrice, setItemsPrice] = useState([])
@@ -71,7 +76,6 @@ useEffect(() => {
            if(sizes){
             const obj = {
                 userEmail: sessionStorage.getItem('E-react-user_email'),
-                userName: sessionStorage.getItem('E-react-user_name'),
                 ordersNo: totalCarts
             };
 
@@ -82,9 +86,7 @@ useEffect(() => {
             })
            }
         }else{
-            toast.error('SignIn your Account!',{
-                autoClose: 600
-            })
+            navigate('/signin')
         }
     };
 
